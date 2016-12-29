@@ -63,4 +63,19 @@ public class DemoTest {
         sqlSession.commit();
         sqlSession.close();
     }
+
+    @Test
+    public void insertUuid() throws IOException {
+        String resource = "SqlMapConfig.xml";
+        InputStream inputStream = Resources.getResourceAsStream(resource);
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        User user = new User();
+        //user.setAddress("beijing");
+        user.setUsername("uuid");
+        sqlSession.insert("test.insertUuid", user);
+        sqlSession.commit();
+        System.out.println(user);
+        sqlSession.close();
+    }
 }

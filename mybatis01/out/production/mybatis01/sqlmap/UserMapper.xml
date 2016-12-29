@@ -21,4 +21,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="updateUser" parameterType="com.xindong.mybatis.domain.User">
 		UPDATE user set username=#{username}, birthday=#{birthday}, sex=#{sex}, address=#{address} WHERE id=#{id}
 	</update>
+
+	<insert id="insertUuid" parameterType="com.xindong.mybatis.domain.User">
+		<selectKey order="BEFORE" resultType="java.lang.String" keyProperty="address">
+			SELECT uuid();
+		</selectKey>
+		INSERT INTO user(username, address) VALUES (#{username}, #{address});
+	</insert>
 </mapper>
