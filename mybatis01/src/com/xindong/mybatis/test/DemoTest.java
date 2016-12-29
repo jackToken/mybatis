@@ -2,6 +2,7 @@ package com.xindong.mybatis.test;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -76,6 +77,17 @@ public class DemoTest {
         sqlSession.insert("test.insertUuid", user);
         sqlSession.commit();
         System.out.println(user);
+        sqlSession.close();
+    }
+
+    @Test
+    public void findUser() throws IOException {
+        String resource = "SqlMapConfig.xml";
+        InputStream inputStream = Resources.getResourceAsStream(resource);
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        List<User> list = sqlSession.selectList("test.findUser", "张");
+        System.out.println(list);
         sqlSession.close();
     }
 }

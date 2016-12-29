@@ -26,6 +26,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<selectKey order="BEFORE" resultType="java.lang.String" keyProperty="address">
 			SELECT uuid();
 		</selectKey>
-		INSERT INTO user(username, address) VALUES (#{username}, #{address});
+		INSERT INTO user(username, address) VALUES (#{username}, #{address})
 	</insert>
+
+	<select id="findUser" parameterType="java.lang.String" resultType="com.xindong.mybatis.domain.User">
+		SELECT id, username, birthday, sex, address FROM user WHERE username LIKE '%${value}%'
+	</select>
 </mapper>
